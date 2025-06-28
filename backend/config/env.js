@@ -1,0 +1,22 @@
+import { config } from "dotenv";
+
+config();
+
+export const {
+  PORT,
+  JWT_SECRET,
+  JWT_EXPIRES_IN,
+  ABSTRACT_API_KEY,
+  REFRESH_TOKEN_EXPIRES_IN,
+  GOOGLE_CLIENT_ID,
+  OPEN_AI_KEY,
+  RECAPTCHA_SECRET_KEY,
+  EMAIL_USER,
+  EMAIL_PASS,
+  API_KEY,
+  FRONT_URL,
+  GIF_API_KEY,
+  API_PEXEL8VIDEO_KEY,
+  N8N_EMAIL_WEBHOOK_URL,
+  N8N_CHATBOT_WEBHOOK_URL,
+} = process.env;

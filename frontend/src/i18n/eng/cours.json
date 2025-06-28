@@ -1,0 +1,17 @@
+{
+  "title": "Explore our modules",
+  "subtitle": "Discover our courses and improve your skills",
+  "loading": "Loading modules...",
+  "error_title": "Loading error",
+  "retry": "Retry",
+  "no_results_title": "No module found",
+  "all": "All",
+  "no_results_description": "Try changing your search criteria",
+  "continue": "Continue",
+  "progress": "Progress",
+  "for_ages": "For ages {{age}} and up",
+  "search_placeholder": "Search...",
+  "gallery_title": "3D Gallery",
+  "click_to_view": "Click to view",
+  "badge_3d": "3D"
+}

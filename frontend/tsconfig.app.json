@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    // --- Project Setup ---
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "noEmit": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "useDefineForClassFields": true,
+    
+
+    // --- Module Resolution & Interoperability ---
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "allowJs": true, // <-- IMPORTANT: Allows importing .js/.jsx files
+    "skipLibCheck": true,
+    "esModuleInterop": true, // Recommended for compatibility
+    "verbatimModuleSyntax": true,
+
+    // --- Strictness & Linting ---
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // --- (Optional but Recommended) For Cleaner Imports ---
+    
+   
+  },
+  "include": ["src"]
+}

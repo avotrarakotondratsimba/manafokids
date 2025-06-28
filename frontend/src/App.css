@@ -1,0 +1,130 @@
+/* ==========================================================================
+   1. Variables de Thème
+   ========================================================================== */
+
+:root {
+  /* Variables spécifiques */
+  --cursor-scale: 1;
+
+  /* Couleur */
+  --accent: #a855f7;
+  --background: #fff;
+  --text-color: #020617;
+  --secondary-text: #6b7280;
+  --border: #d1d5db;
+  --bg-user-modal: #fff;
+
+  --input-profil: #f0f1f5;
+  --input-profil-hover: #e2e4ea;
+  --background-image-cours: url("/images/bg.jpg");
+}
+
+html.dark {
+  --background: #0e0f2b;
+  --text-color: #fff;
+  --secondary-text: #b1b3b7;
+  --border: #d1d5db;
+  --bg-user-modal: #2a2d33;
+
+  --input-profil: #404249;
+  --input-profil-hover: #4a4c52;
+  --background-image-cours: url("/images/bgdark.jpg");
+}
+
+/* ==========================================================================
+     2. Styles de Base
+     ========================================================================== */
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+* {
+  cursor: none;
+}
+/* ==========================================================================
+     3. Bouton google
+     ========================================================================== */
+
+/* .google-btn {
+  position: relative;
+  display: inline-block; 
+  width: 100%;
+}
+
+.google-btn > div {
+  border: none !important;
+  border-radius: 0.75rem !important; 
+  overflow: hidden;
+}
+
+.google-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  pointer-events: none; 
+}
+
+.google-login-wrapper > div,
+.google-login-button {
+  width: 100% !important;
+  max-width: 100% !important;
+  justify-content: center !important;
+} */
+
+/* ==========================================================================
+     3. Curseur
+     ========================================================================== */
+.main-cursor {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translate(-50%, -50%) scale(var(--cursor-scale, 1));
+  transition: transform 0.2s ease, box-shadow 0.4s ease;
+  mix-blend-mode: normal;
+  box-shadow: 0 0 10px var(--accent), 0 0 25px var(--accent);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+html.dark .main-cursor {
+  mix-blend-mode: lighten;
+  box-shadow: 0 0 8px var(--accent), 0 0 20px var(--accent),
+    0 0 35px var(--accent);
+}
+
+.cursor-particle {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  mix-blend-mode: normal;
+  filter: blur(2px);
+}
+
+html.dark .cursor-particle {
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  filter: blur(3px);
+}
+
+/* Effet de grossissement du curseur au survol d'éléments interactifs */
+button:hover,
+a:hover,
+[role="button"]:hover,
+.hover-target:hover {
+  --cursor-scale: 1.6;
+}

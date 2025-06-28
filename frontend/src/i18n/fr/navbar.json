@@ -1,0 +1,21 @@
+{
+  "home": "Accueil",
+  "discover": "Découvrir",
+  "community": "Communauté",
+  "ai": "IA",
+  "forum": "Forum",
+  "view_profile": "Voir le profil",
+  "logout": "Se déconnecter",
+  "logo": "Logo",
+  "guest": "Invité",
+  "login": "Connexion",
+  "message": "Message",
+  "AgentIA": "Assistant IA",
+  "Cours": "Cours",
+  "Jeu": "Jeux",
+  "Galerie 3D": "Galerie 3D",
+  "edit_profile": "Afficher le profil",
+  "change_profile": "Se déconnecter",
+  "user_menu": "Menu utilisateur",
+  "toggle_theme": "Changer le thème clair/sombre"
+}

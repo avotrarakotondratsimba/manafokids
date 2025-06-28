@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId         Int     @id @default(autoincrement())
+  googleId       String? @unique // pour la connexion Google
+  userName       String
+  email          String  @unique
+  password       String?
+  profilePicture String?
+  role           String  @default("client")
+
+  // Pour la connexion 2FA
+  twoFactorEnabled    Boolean   @default(false)
+  twoFactorCode       String? // code temporaire
+  twoFactorCodeExpiry DateTime?
+
+  adminGroups Group[]       @relation("GroupAdmin")
+  groups      GroupMember[] @relation("GroupMember")
+  messages    Message[]     @relation("MessagesSent")
+  kids        Kid[]
+}
+
+model Kid {
+  kidId           Int      @id @default(autoincrement())
+  userId          Int
+  kidUserName     String
+  birthDate       DateTime
+  profilePic      String?
+  sessionDuration Int // Durée de session en minutes
+  weekXp          Int      @default(0) // XP de la semaine
+  totalXp         Int      @default(0) // XP total
+  divisionName    String   @default("bronze") // gold, silver, bronze
+
+  user     User     @relation(fields: [userId], references: [userId])
+  division Division @relation(fields: [divisionName], references: [divisionName])
+
+  progress        Progress[]
+  chapterProgress ChapterProgress[]
+}
+
+model Division {
+  divisionId   Int     @id @default(autoincrement())
+  divisionName String  @unique
+  divisionUrl  String?
+
+  kids Kid[]
+}
+
+model Theme {
+  themeId   Int     @id @default(autoincrement())
+  themeName String
+  themeUrl  String?
+  ageGroup  Int     @default(5)
+
+  modules Module[]
+}
+
+model Module {
+  moduleId   Int     @id @default(autoincrement())
+  moduleName String
+  moduleUrl  String?
+  themeId    Int
+  ageGroup   Int     @default(5)
+
+  theme Theme @relation(fields: [themeId], references: [themeId])
+
+  lessons Lesson[]
+}
+
+model Lesson {
+  lessonId   Int     @id @default(autoincrement())
+  lessonName String
+  lessonUrl  String?
+  moduleId   Int
+  ageGroup   Int     @default(5)
+
+  module Module @relation(fields: [moduleId], references: [moduleId])
+
+  chapters Chapter[]
+
+  progress Progress[]
+}
+
+model Chapter {
+  chapterId   Int     @id @default(autoincrement())
+  chapterName String
+  chapterUrl  String?
+  content     String
+  lessonId    Int
+
+  lesson Lesson @relation(fields: [lessonId], references: [lessonId])
+
+  chapterProgress ChapterProgress[]
+}
+
+model ChapterProgress {
+  chapterProgressId Int     @id @default(autoincrement())
+  kidId             Int
+  chapterId         Int
+  completed         Boolean @default(false)
+
+  kid     Kid     @relation(fields: [kidId], references: [kidId])
+  chapter Chapter @relation(fields: [chapterId], references: [chapterId])
+}
+
+model Progress {
+  progressId Int     @id @default(autoincrement())
+  kidId      Int
+  lessonId   Int
+  completed  Boolean @default(false)
+  score      Int     @default(0)
+
+  kid    Kid    @relation(fields: [kidId], references: [kidId])
+  lesson Lesson @relation(fields: [lessonId], references: [lessonId])
+}
+
+model Group {
+  groupId   Int      @id @default(autoincrement())
+  groupName String
+  createdAt DateTime @default(now())
+  adminId   Int
+  avatarUrl String?
+
+  members  GroupMember[]
+  messages Message[]
+
+  admin User @relation("GroupAdmin", fields: [adminId], references: [userId])
+}
+
+model GroupMember {
+  groupMemberId Int @id @default(autoincrement())
+  userId        Int
+  groupId       Int
+
+  user  User  @relation("GroupMember", fields: [userId], references: [userId])
+  group Group @relation(fields: [groupId], references: [groupId])
+}
+
+model Message {
+  messageId  Int      @id @default(autoincrement())
+  text       String
+  senderId   Int
+  groupId    Int
+  createdAt  DateTime @default(now())
+  modifiedAt DateTime @updatedAt
+
+  group  Group @relation(fields: [groupId], references: [groupId])
+  sender User  @relation("MessagesSent", fields: [senderId], references: [userId])
+}
